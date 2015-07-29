@@ -1,5 +1,5 @@
 suites:
     main:
-        namespace: App
-        psr4_prefix: App
+        namespace: AuthEdge
+        psr4_prefix: AuthEdge
         src_path: app
