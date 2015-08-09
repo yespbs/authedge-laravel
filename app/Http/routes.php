@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+/**
+ * home page
+ */ 
+Route::get('/', [ 'uses' => 'PageController@getIndex', 'as' => 'home' ]);
