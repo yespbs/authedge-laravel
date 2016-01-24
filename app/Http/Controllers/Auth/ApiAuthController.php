@@ -35,7 +35,7 @@ class ApiAuthController extends Controller
         // log
         $context = ['context'=>'ApiAuthController::'.__FUNCTION__];
 
-        $error = ['status'=>'error','message'=>'You missed the email or password input.'];
+        $errors = ['status'=>'error','message'=>'You missed the email or password input.'];
         
         if( $request->has('email') && $request->has('password') ){
 
@@ -46,15 +46,14 @@ class ApiAuthController extends Controller
                 $user->login_at = Carbon::now();
                 $user->login_token = str_random(32);
                 $user->save();
-
-                $error = ['status'=>'success','message'=>'Login successful','user'=>$user];
                 
+                return response()->json( ['status'=>'success','message'=>'Login successful','user'=>$user] );
             }else{
-                $error = ['status'=>'error','message'=>'These credentials do not match our records.'];
+                $errors = ['status'=>'error','message'=>'These credentials do not match our records.'];
             }
         }    
 
-        return response()->json( $error );
+        return response()->json( $errors, 404 );
     } 
 
     /**
@@ -64,7 +63,7 @@ class ApiAuthController extends Controller
      */
     public function anyLogout( Request $request )
     {
-        $error = ['status'=>'error','message'=>'You missed the email input.'];
+        $errors = ['status'=>'error','message'=>'You missed the email input.'];
 
         if( $request->has('email') ){
 
@@ -76,16 +75,14 @@ class ApiAuthController extends Controller
                 $user->login_token = null;
                 $user->save();
 
-                $error = ['status'=>'success','message'=>'Logout successful'];
-            
+                return response()->json( ['status'=>'success','message'=>'Logout successful'] );
             }else{
 
-                $error = ['status'=>'error','message'=>'These credentials do not match our records.'];
-                
+                $errors = ['status'=>'error','message'=>'The email could not be found.'];
             }     
         }      
-
-        return response()->json( $error );
+        
+        return response()->json( $errors, 404 );
     }
 }
 
