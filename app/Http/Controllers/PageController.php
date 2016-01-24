@@ -3,7 +3,7 @@
 /**
  * Page Controller
  * 
- * @package QuarterUp
+ * @package AuthEdge
  * @subpackage Laravel
  * @version 1.0
  */ 
